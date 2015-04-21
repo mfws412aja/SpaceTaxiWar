@@ -1,0 +1,210 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta name="format-detection" content="telephone=no"/>
+	<meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0"/>
+
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/jquery-ui.js"></script>
+	<script src="js/settings.js"></script>
+	<script src="js/label.js"></script>
+	<script src="js/dialog.js"></script>
+	<script src="js/login.js"></script>
+	<script src="js/onload.js"></script>
+	<script src="js/game_play.js"></script>
+	<script src="js/collision.js"></script>
+	<script src="js/set_options.js"></script>
+	<script src="js/figures.js"></script>
+	<script src="js/set_fields.js"></script>
+	<script src="js/browser_functions.js"></script>
+	<script src="js/sounds.js"></script>
+	<script src="js/game_field.js"></script>
+	<script src="js/player.js"></script>
+	<script src="js/bullet.js"></script>
+	<script src="js/enemy.js"></script>
+	<script src="js/events.js"></script>
+	<script src="js/kinetic.js"></script>
+
+	<link rel="stylesheet" href="css/jquery-ui.css" />
+	<link rel="stylesheet" href="css/spacetaxi.css" />
+	
+	<Title>SpaceTaxiWar</Title>
+</head>
+
+<body>
+<form id="form_index" action="" method="post" enctype="multipart/form-data">
+
+<div id="index_label_spacetaxi_header"></div>
+<a id="index_impressung" href="impressum.html"></a>
+
+
+<div id ="login" class="page">
+	<strong><label id="login_label_username" style="text-align: right;"></label></strong>
+	<input id="login_username" type="text" /><br /><br />
+
+	<div id="login_login_button" class="button"></div>
+</div>
+
+
+
+<div id="index" class="page">
+
+	<div id="index_save_stage_button" class="button"></div>
+	<div id="index_delete_stage_button" class="button"></div>
+	<div id="index_options_button" class="button" onclick="change_page('#index', '#options');"></div>
+	<div id="index_reset_button" class="button"></div><br /><br />
+	<div id="index_start_game_button" class="button"></div>
+	<div id="index_end_game_button" class="button" style="display: none;"></div><br /><br />
+
+	<div id="index_options">
+		<span style="width: 50%;">
+			<strong><label id="options_label_other_user" style="text-align: right;"></label></strong>
+		</span>
+		<span style="width: 50%;">
+			<select id="options_other_user" class="options_dropdown" options_art="other_user" style="text-align: left;" size="0">
+			</select><br /><br />
+		</span>
+
+		<span style="width: 50%;" class="options_field_size">
+			<strong><label id="options_label_width" style="text-align: right;"></label></strong>
+		</span>
+		<span style="width: 50%;" class="options_field_size">
+			<select id="options_width" class="options_dropdown" options_art="width" style="text-align: left;" size="0">
+			  <option selected value="500">500</option>
+			</select><br /><br />
+		</span>
+
+		<span style="width: 50%;" class="options_field_size">
+			<strong><label id="options_label_height" style="text-align: right;"></label></strong>
+		</span>
+		<span style="width: 50%;" class="options_field_size">
+			<select id="options_height" class="options_dropdown" options_art="height" style="text-align: left;" size="0">
+			  <option selected value="500">500</option>
+			</select><br /><br />
+		</span>
+	</div>
+
+	<span style="width: 50%;">
+		<strong><label id="options_label_stage" style="text-align: right;"></label></strong>
+	</span>
+	<span style="width: 50%;">
+		<select id="index_select_user_stage" class="options_dropdown" options_art="current_stage" style="text-align: left;" size="0">
+		</select>
+		<select id="index_select_default_stage" class="options_dropdown" options_art="current_stage" style="text-align: left; display: none;" size="0">
+		</select>
+	</span><br /><br />
+
+	<div id="game_spacetaxi">
+		 <div id="game_field">
+		 </div> 
+	</div><br /><br />
+	<strong>
+		<label id="index_label_highscore_text"></label>
+		<label id="index_label_highscore"></label><br /><br />
+		<label id="index_label_highscore_actual_text"></label>
+		<label id="index_label_highscore_actual"></label>
+	</strong><br /><br />
+	<strong>
+		<label id="index_label_time_text"></label>
+		<label id="index_label_time_actual"></label>
+	</strong><br /><br />
+
+</div>
+
+<!-- index Ende ****************************************************************************************************************************-->
+<!-- options Anfang ****************************************************************************************************************************-->
+
+<div id="options" class="page">
+
+	<div id="options_back_button" class="button back_button" onclick="change_page('#options', '#index');"></div><br /><br />
+
+	<strong><label id="options_label_sprache"></label></strong><br />
+	<select id="options_sprache" class="options_dropdown" options_art="sprache" size="0">
+	  <option selected value="de">Deutsch</option>
+	  <option value="en">English</option>
+	</select><br /><br />
+
+	<input id="options_sounds_effekte" type="checkbox" onchange="set_sounds()" />
+	<strong><label id="options_label_sounds_effekte"></label></strong><br /><br />
+
+	<input id="options_sounds_bg" type="checkbox" onchange="set_sounds()" />
+	<strong><label id="options_label_sounds_bg"></label></strong><br /><br />
+
+	<input id="options_friendly_fire" type="checkbox" />
+	<strong><label id="options_label_friendly_fire"></label></strong><br /><br />
+
+	<strong><label id="options_label_difficulty"></label></strong><br />
+	<select id="options_difficulty" class="options_dropdown" options_art="difficulty" size="0">
+	  <option selected value="1">1</option>
+	</select><br /><br /><br />
+	
+	
+	<strong>
+		<label id="options_label_key_up"></label>
+		<label id="options_label_keycode_up"></label>
+	</strong><br />
+	<input id="options_key_up" type="text" maxlength="1" direction="up" class="game_key" /><br /><br />
+
+	<strong>
+		<label id="options_label_key_down"></label>
+		<label id="options_label_keycode_down"></label>
+	</strong><br />
+	<input id="options_key_down" type="text" maxlength="1" direction="down" class="game_key" /><br /><br />
+
+	<strong>
+		<label id="options_label_key_left"></label>
+		<label id="options_label_keycode_left"></label>
+	</strong><br />
+	<input id="options_key_left" type="text" maxlength="1" direction="left" class="game_key" /><br /><br />
+
+	<strong>
+		<label id="options_label_key_right"></label>
+		<label id="options_label_keycode_right"></label>
+	</strong><br />
+	<input id="options_key_right" type="text" maxlength="1" direction="right" class="game_key" /><br /><br />
+
+	<strong>
+		<label id="options_label_key_turbo"></label>
+		<label id="options_label_keycode_turbo"></label>
+	</strong><br />
+	<input id="options_key_turbo" type="text" maxlength="1" direction="turbo" class="game_key" /><br /><br />
+
+	
+	<div id="options_save_options_button" class="button"></div><br /><br /><br />
+
+	<strong><label id="options_label_player_bild"></label></strong><br />
+	<img id="options_img_player_bild" name="options_img_player_bild" class="options_bild"></img>
+	<input id="options_player_input" name="options_player_input" class="options_bild_input" bild="player" type="file" accept="image/*" /><br /><br /><br />
+
+	<strong><label id="options_label_ziel_bild"></label></strong><br />
+	<img id="options_img_ziel_bild" name="options_img_ziel_bild" class="options_bild"></img>
+	<input id="options_ziel_input" name="profil_bearbeiten_bild" class="options_bild_input" bild="ziel" type="file" accept="image/*" /><br /><br /><br />
+
+	<strong><label id="options_label_victim_bild"></label></strong><br />
+	<img id="options_img_victim_bild" name="options_img_victim_bild" class="options_bild"></img>
+	<input id="options_victim_input" name="profil_bearbeiten_bild" class="options_bild_input" bild="victim" type="file" accept="image/*" /><br /><br /><br />
+
+	<strong><label id="options_label_enemy_bild"></label></strong><br />
+	<img id="options_img_enemy_bild" name="options_img_enemy_bild" class="options_bild"></img>
+	<input id="options_enemy_input" name="profil_bearbeiten_bild" class="options_bild_input" bild="enemy" type="file" accept="image/*" /><br /><br />
+
+	<div id="options_delete_user_button" class="button"></div><br /><br /><br />
+</div>
+
+<!-- options Ende ****************************************************************************************************************************-->
+
+
+<div id="dialog" class="alert">
+	<div id="dialog_text"></div>
+</div>
+
+	<audio id="audio_bg" loop></audio>
+	<audio id="audio_sounds_1"></audio>
+	<audio id="audio_sounds_2"></audio>
+	<audio id="audio_sounds_3"></audio>
+	<audio id="audio_sounds_4"></audio>
+	<audio id="audio_sounds_5"></audio>
+
+</form>
+</body>
+</html>

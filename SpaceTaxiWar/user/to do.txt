@@ -1,0 +1,10 @@
+schiff mit bild bewegen (gif), 
+
+lizenzen für hintergundbilder und töne, 
+
+zu beginn tutorial bzw. beschreibender Text, 
+
+logo,
+
+beim ersten laden müssen die bilder direkt sichtbar sein. 
+

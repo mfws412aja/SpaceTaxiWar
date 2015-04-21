@@ -1,0 +1,13 @@
+500
+700
+player;0;0
+ziel;29;499
+victim;80;106
+victim;435;103
+victim;162;102
+enemy;135;345
+enemy;242;347
+wall;23;421
+victim;338;103
+victim;242;103
+enemy;30;343
