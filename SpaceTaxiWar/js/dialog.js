@@ -1,6 +1,6 @@
 function confirm_dialog_function(id_text, button_1, button_2, func_1, func_2) {
 	// Erst das Fenster ganz nach oben scrollen.
-	scroll_window();
+//	scroll_window();
 
 	// Die erste Ausgabe, ob der Energieverbrauch zu hoch ist.
 	var dialog_title = label_dialog['title'];
@@ -63,9 +63,6 @@ function confirm_dialog_function(id_text, button_1, button_2, func_1, func_2) {
 
 
 function basic_dialog(id, arr) {
-	// Erst das Fenster ganz nach oben scrollen.
-	//	scroll_window();
-
 	// Die erste Ausgabe, ob der Energieverbrauch zu hoch ist.
 	var dialog_title = label_dialog['title'];
 	var button_ok = label_dialog['button_ok'];

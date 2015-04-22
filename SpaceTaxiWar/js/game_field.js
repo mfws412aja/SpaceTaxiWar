@@ -70,10 +70,13 @@ function change_stage(stage, run) {
 			set_dropdown_values();
 
 			// Das Fenster ganz nach oben scrollen.
-			setTimeout(function () {
-				// Erst wenn das Spielfeld fertig angezeigt wurde.
-				scroll_window();
-			}, index_effect.show_duration);
+			var inter = setInterval(function () {
+				if (!$('#dialog').is(':visible')) {
+					// Erst wenn die Dialogbox weg ist. 
+					scroll_window();
+					clearInterval(inter);
+				}
+			}, frame_update);
 
 			// Wenn auch das Spiel gestartet werden soll.
 			game.active = run;
