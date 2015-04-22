@@ -4,7 +4,7 @@
 function save_game() {
 	if (options.other_user != user.name)
 		return;
-
+		
 	// Die neu gesetzten Variablen entnehmen.
 	options.draggable = true;
 	options.key_up = options.key_up;

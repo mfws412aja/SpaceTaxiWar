@@ -74,7 +74,7 @@ $(document).ready(function () {
 			get_saved_stages_count(false);
 
 			// Die erste Default-Stage aufrufen.
-			change_stage(user.current_stage, false);
+//			change_stage(user.current_stage, false);
 
 			// Alle Elemente ausblenden
 			$('#index_options').show();
@@ -120,16 +120,12 @@ $(document).ready(function () {
 				user.current_default_stage = user.current_stage;
 
 			change_stage(user.current_stage, false);
-		}
-
-		if (options_art == "sprache") {
+		} else if (options_art == "sprache") {
 			options.sprache = this.value;
 			// Alle Beschriftungen neu laden.
 			load_label(options.sprache);
 		} else if (options_art == "difficulty") {
 			options.difficulty = parseFloat(this.value);
-		} else {
-			save_game();
 		}
 		place_figures();
 	});
