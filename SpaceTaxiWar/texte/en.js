@@ -95,6 +95,7 @@ var label_dialog = {
 	error_during_picture_uploading : "Error while uploading: {0}",
 	cannot_change_other_user_picture : "Yout can't change the images from other users.",
 	picture_upload_size_error : "Filesize is too large. Maximum {0} KB",
+	cannot_add_or_remove_other_user_figures : "You can't add or remove figures from other users.",
 
 	// Aus game_field
 	cannot_delete_last_figure : "You cannot delete your last figure of this art.",

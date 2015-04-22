@@ -95,6 +95,7 @@ var label_dialog = {
 	error_during_picture_uploading : "Es ist ein Fehler beim Hochladen aufgetreten: {0}",
 	cannot_change_other_user_picture : "Sie können nicht das Bild eines anderes Users ändern.",
 	picture_upload_size_error : "Datei ist zu groß. Maximal {0} KB",
+	cannot_add_or_remove_other_user_figures : "Sie können keine Figuren von anderen Usern erstellen oder entfernen.",
 
 	// Aus game_field
 	cannot_delete_last_figure : "Sie können Ihre letzte Figur dieser Art nicht löschen",

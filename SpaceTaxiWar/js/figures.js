@@ -90,7 +90,13 @@ function add_figure(figure) {
 		// Nur, wenn das Spiel gerade nicht aktiv ist.
 		if ((game.active == true && options.draggable == false) || user.default_run == "X")
 			return;
+		// Prüfen, ob der User seine eigene Stage bearbeitet.
+		if (options.other_user != user.name) {
+			basic_dialog('cannot_add_or_remove_other_user_figures');
+			return;
+		}
 
+			
 		bild = this.attrs['bild'];
 
 		// Wenn es nicht der Spieler oder das Ziel ist.
