@@ -38,6 +38,10 @@ var label_options = {
 	options_label_ziel_bild : "Change Aim-picture",
 	options_label_victim_bild : "Change Passenger-picture",
 	options_label_enemy_bild : "Change Alien-picture",
+	options_label_anzahl_player_sprites : "Sprites count",
+	options_label_anzahl_ziel_sprites : "Sprites count",
+	options_label_anzahl_victim_sprites : "Sprites count",
+	options_label_anzahl_enemy_sprites : "Sprites count",
 
 	options_delete_user_button : "Delete user",
 	options_save_options_button : "Save changes",
@@ -89,6 +93,7 @@ var label_dialog = {
 	successful_deleted : "Delete successful",
 	picture_successful_changed : "Picture successful changed. You may need to refresh the page.",
 	error_during_picture_uploading : "Error while uploading: {0}",
+	cannot_change_other_user_picture : "Yout can't change the images from other users.",
 	picture_upload_size_error : "Filesize is too large. Maximum {0} KB",
 
 	// Aus game_field

@@ -26,7 +26,6 @@ $(document).ready(function () {
 	$('#login_login_button').click(function () {
 		user.name = document.getElementById('login_username').value.trim();
 		if (!user.name) {
-			spiele_sound('audio_sounds_4', 'zugriff_verweigert');
 			document.getElementById('login_username').focus();
 			return;
 		}
@@ -34,12 +33,10 @@ $(document).ready(function () {
 
 		var regex = new RegExp(/[^a-zA-Z0-9_äöüÄÖÜß]/);
 		if (user.name.match(regex)) {
-			spiele_sound('audio_sounds_4', 'zugriff_verweigert');
 			basic_dialog('falsche_zeichen', ["[a-zA-Z0-9_äöüÄÖÜß]"]);
 			document.getElementById('login_username').focus();
 			return;
 		}
-//		spiele_sound('audio_sounds_4', 'zugriff_erfolgt');
 		onload();
 	});
 });

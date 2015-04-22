@@ -38,6 +38,10 @@ var label_options = {
 	options_label_ziel_bild : "Ziel-Bild ändern",
 	options_label_victim_bild : "Passagier-Bild ändern",
 	options_label_enemy_bild : "Alien-Bild ändern",
+	options_label_anzahl_player_sprites : "Anzahl Player-Sprites",
+	options_label_anzahl_ziel_sprites : "Anzahl Ziel-Sprites",
+	options_label_anzahl_victim_sprites : "Anzahl Passagier-Sprites",
+	options_label_anzahl_enemy_sprites : "Anzahl Alien-Sprites",
 
 	options_delete_user_button : "User löschen",
 	options_save_options_button : "Änderungen speichern",
@@ -76,7 +80,7 @@ var label_dialog = {
 	no_more_levels : "Keine weiteren Level vorhanden.",
 	time_up : "Zeit abgelaufen!",
 	game_over : "Game Over",
-	rescue_all_victims : "Game Over!<br />Sammle alle Passagiere ein! {0} / {1}",
+	rescue_all_victims : "Game Over!<br />Sammle alle Passagiere ein!<br />{0} / {1}",
 
 	// Aus dem login-Formular
 	falsche_zeichen : "Bitte nur folgende Zeichen eingeben: {0}",
@@ -89,6 +93,7 @@ var label_dialog = {
 	successful_deleted : "Erfolgreich gelöscht",
 	picture_successful_changed : "Bild erfolgreich geändert. Gegebenenfalls müssen Sie die Seite aktualisieren.",
 	error_during_picture_uploading : "Es ist ein Fehler beim Hochladen aufgetreten: {0}",
+	cannot_change_other_user_picture : "Sie können nicht das Bild eines anderes Users ändern.",
 	picture_upload_size_error : "Datei ist zu groß. Maximal {0} KB",
 
 	// Aus game_field

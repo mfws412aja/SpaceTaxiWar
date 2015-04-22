@@ -48,7 +48,7 @@ $(document).ready(function () {
 			user.current_stage = user.current_default_stage;
 
 			// Die erste Default-Stage aufrufen.
-			change_stage(user.current_stage, false);
+			if (on_bild_load >= 4) change_stage(user.current_stage, false);
 
 			// Wenn alles weg ist, index wieder einblenden.
 			$('#index').show(index_effect.show_effect, index_effect.show_duration);
@@ -92,11 +92,11 @@ $(document).ready(function () {
 	$('.options_dropdown').change(function () {
 		var options_art = this.getAttribute('options_art');
 		if (options_art == "other_user") {
-			options.other_user = this.value;
-			get_saved_stages_count(false);
-			set_player_pictures();
-			change_stage(1, false);
+			options.other_user = this.value.trim();
 			user.current_stage = 1;
+			get_saved_stages_count(false);
+//			set_player_pictures();
+//			change_stage(1, false);
 			if (options.other_user == user.name) {
 				$('#index_save_stage_button').show();
 				$('#index_delete_stage_button').show();
@@ -132,6 +132,11 @@ $(document).ready(function () {
 			save_game();
 		}
 		place_figures();
+	});
+
+
+	$('.options_sprite_count').change(function () {
+		if (this.value <= 0 || this.value > 100) this.value = 1;
 	});
 
 	$('#index_reset_button').click(function () {
@@ -175,7 +180,15 @@ $(document).ready(function () {
 		set_keyboard();
 	});
 
-	$('.options_bild_input').change(function () {
+
+	
+	$('.options_bild_input').change(function () {	
+		// Prüfen, ob der jeweilige User seine eigenen Bilder ändert oder die eines besuchten Users.
+		if (options.other_user != user.name) {
+			basic_dialog('cannot_change_other_user_picture');
+			return;
+		}
+
 		var id = this.id;
 		var bild = this.getAttribute('bild');
 		var form_data = new FormData();
@@ -206,7 +219,7 @@ $(document).ready(function () {
 					var new_src = request.responseText.trim() + "?" + new Date().getTime();
 					var obj = document.getElementById(new_id);
 					eval('user.' + bild + '_bild_src = new_src;');
-					resize_img(new_id, new_src);
+					resize_img(new_id, new_src, bild);
 					change_stage(user.current_stage, false);
 					} else {
 						basic_dialog('error_during_picture_uploading', [request.status]);

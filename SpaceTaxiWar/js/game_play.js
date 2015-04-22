@@ -20,6 +20,9 @@ function game_run() {
 	// Das Spiel zurücksetzn. Dabei werden auch die Variablen geleert.
 	//	reset_game(time_anim, player_anim);
 
+	// Den Interval für die Beschleunigung des Spielers. 
+	set_player_speedup();
+	
 	// Die Zeit stoppen.
 	var time_anim = setInterval(function () {
 			time_left -= 0.1;
@@ -153,8 +156,8 @@ function game_run() {
 						// Prüfen, ob eine Dialogbox bereits geöffnet ist.
 						var inter = setInterval(function () {
 								if (!$('#dialog').is(':visible')) {
+//									change_stage(current_stage, false);
 									clearInterval(inter);
-									change_stage(current_stage, false);
 									return;
 								}
 							}, frame_update);
@@ -199,6 +202,13 @@ function reset_game(time_anim, player_anim) {
 	// Die Animationen stoppen.
 	clearInterval(time_anim);
 	clearInterval(player_anim);
+	clearInterval(player.speedup);
+
+	// Die Offset-Faktoren auf 0 setzen, um die Beschleunigung zu Beginn herauszunehmen. 
+	player.offset_l_faktor = 0;
+	player.offset_r_faktor = 0;
+	player.offset_u_faktor = 0;
+	player.offset_d_faktor = 0;
 
 	// Den Spielfortschritt zurücksetzen.
 	game.victim_counter = parseFloat(0);

@@ -14,10 +14,21 @@ $(document).keydown(function (evt) {
 		if ($('#dialog').is(":visible"))
 			return;
 
+		// Prüft, ob das Spielfeld gerade aufgebaut wird. 
+		if (!game.ready_state) return;
+		game.ready_state = false;
+		
+		// Den Sound für den Schub definieren. 
+		spiele_sound("audio_sounds_5", "schub");
+
 		// Die aktuelle Stage laden und ggf. das Spiel starten.
 		game.active = !game.active;
 		change_stage(user.current_stage, game.active);
 	}
+	
+	// Den Sound für den Schub aktivieren, sofern eine Richtungstasten gedrückt wurde. 
+	if ((map[options.key_up] || map[options.key_down] || map[options.key_left] || map[options.key_right]) && game.active) document.getElementById("audio_sounds_5").volume = 0.2;
+
 }).keyup(function (evt) {
 	// Prüfen, ob das Spielfeld aktiv ist (dieses muss sichtbar sein);
 	if (!$('#index').is(":visible"))
@@ -25,9 +36,18 @@ $(document).keydown(function (evt) {
 
 	if (evt.which in map) {
 		map[evt.keyCode] = false;
-		if (map[options.key_up] == false && map[options.key_down] == false)
-			player.move_up_or_down = false;
+		// Wenn eine Taste losgelassen wurde prüfen, ob keine Hoch- oder Runtertaste mehr gedrückt wurde und der Hoch- Runterfaktor = 0 ist. 
+		var inter = setInterval(function() {
+			if (map[options.key_up] == false && map[options.key_down] == false && player.offset_u_faktor <= 0 && player.offset_d_faktor <= 0) {
+				player.move_up_or_down = false;
+				clearInterval(inter);
+			}
+		}, 10);
 	}
+	
+	// Den Sound für den Schub deaktivieren, sofern keine Richtungstasten mehr gedrückt sind. 
+	if (!map[options.key_up] && !map[options.key_down] && !map[options.key_left] && !map[options.key_right]) document.getElementById("audio_sounds_5").volume = 0;
+
 });
 
 function player_move() {
@@ -57,37 +77,40 @@ function player_move() {
 	}
 
 	// Nur links
-	if (map[options.key_left]) {
+	if (map[options.key_left] || (player.offset_l_faktor > 0 && player.left_or_right == "l")) {
 		// Die Schussrichtung nach links.
 		player.left_or_right = "l";
-		obj.setX(obj.getX() - offsetx);
-		if (obj.getX() < 0)
-			obj.setX(0);
+		obj.setX(obj.getX() - (offsetx * (player.offset_l_faktor - player.offset_r_faktor)));
+		if (obj.getX() >= (options.width - obj.width())) obj.setX(options.width - obj.width());
+		if (obj.getX() <= 0) obj.setX(0);
 	}
 
 	// Nur rechts
-	if (map[options.key_right]) {
+	if (map[options.key_right] || (player.offset_r_faktor > 0 && player.left_or_right == "r")) {
 		// Die Schussrichtung nach rechts.
 		player.left_or_right = "r";
-		obj.setX(obj.getX() + offsetx);
-		if (obj.getX() > (options.width - obj.width()))
-			obj.setX(options.width - obj.width());
+		obj.setX(obj.getX() + (offsetx * (player.offset_r_faktor - player.offset_l_faktor)));
+		if (obj.getX() >= (options.width - obj.width())) obj.setX(options.width - obj.width());
+		if (obj.getX() <= 0) obj.setX(0);
 	}
 
 	// Nur hoch
-	if (map[options.key_up]) {
+	if (map[options.key_up] || (player.offset_u_faktor > 0 && player.up_or_down == "u")) {
+		player.up_or_down = "u";
 		player.move_up_or_down = true;
-		obj.setY(obj.getY() - offsety);
-		if (obj.getY() < 0)
-			obj.setY(0);
+		obj.setY(obj.getY() - (offsety * (player.offset_u_faktor - player.offset_d_faktor)));
+		if (obj.getY() + obj.height() >= options.height) obj.setY(options.height - obj.height());
+		if (obj.getY() <= 0) obj.setY(0);
 	}
 
 	// Nur runter
-	if (map[options.key_down]) {
+	if (map[options.key_down] || (player.offset_d_faktor > 0 && player.up_or_down == "d")) {
+		// Die Schussrichtung nach rechts.
+		player.up_or_down = "d";
 		player.move_up_or_down = true;
-		obj.setY(obj.getY() + offsety);
-		if (obj.getY() + obj.height() > options.height)
-			obj.setY(options.height - obj.width());
+		obj.setY(obj.getY() + (offsety * (player.offset_d_faktor - player.offset_u_faktor)));
+		if (obj.getY() + obj.height() >= options.height) obj.setY(options.height - obj.height());
+		if (obj.getY() <= 0) obj.setY(0);
 	}
 
 	// Prüfen, ob der Spieler nicht gegen eine Wand läuft.
@@ -107,9 +130,6 @@ function player_move() {
 
 	var x = obj.getX() - ($(window).width() / 2);
 	window.scrollTo(x, obj.getY());
-
-	// Den Sound für den Schub, sofern eine Richtungstaste gedrückt wurde. 
-	if (map[options.key_up] || map[options.key_down] || map[options.key_left] || map[options.key_right]) spiele_sound("audio_sounds_5", "schub");
 	
 	return bullet_shot;
 }
@@ -129,3 +149,26 @@ function player_drop() {
 	var x = obj.getX() - ($(window).width() / 2);
 	window.scrollTo(x, obj.getY());
 }
+
+
+function set_player_speedup() {
+	player.speedup = setInterval(function() {
+		// Prüfen, ob die linke Richtungstaste gedrückt wurde, um das Schiff zu beschleunigen. 
+		if (map[options.key_left] && player.offset_l_faktor < 1) player.offset_l_faktor += player.offset_faktor_add;
+		else if (player.offset_l_faktor > 0) player.offset_l_faktor -= player.offset_faktor_sub;
+
+		// Prüfen, ob die rechte Richtungstaste gedrückt wurde, um das Schiff zu beschleunigen. 
+		if (map[options.key_right] && player.offset_r_faktor < 1) player.offset_r_faktor += player.offset_faktor_add;
+		else if (player.offset_r_faktor > 0) player.offset_r_faktor -= player.offset_faktor_sub;
+
+		// Prüfen, ob die Richtungstaste hoch gedrückt wurde, um das Schiff zu beschleunigen. 
+		if (map[options.key_up] && player.offset_u_faktor < 1) player.offset_u_faktor += player.offset_faktor_add;
+		else if (player.offset_u_faktor > 0) player.offset_u_faktor -= player.offset_faktor_sub;
+
+		// Prüfen, ob die Richtungstaste runter gedrückt wurde, um das Schiff zu beschleunigen. 
+		if (map[options.key_down] && player.offset_d_faktor < 1) player.offset_d_faktor += player.offset_faktor_add;
+		else if (player.offset_d_faktor > 0) player.offset_d_faktor -= player.offset_faktor_sub;
+
+	}, player.offset_faktor_duration);
+}
+

@@ -43,7 +43,9 @@ function add_figure(figure) {
 			});
 	} else {
 		var obj = document.getElementById('options_img_' + bild + '_bild');
-		var width = obj.width;
+		var anzahl_sprites = eval('game.' + bild + '_sprites');
+		// Die Sprites dürfen nur in die Breite gezogen werden. 
+		var width = parseFloat(obj.width / anzahl_sprites);
 		var height = obj.height;
 		
 		if (bild == "victim")
@@ -51,11 +53,30 @@ function add_figure(figure) {
 		else if (bild == "enemy")
 			options.enemy_counter += 1;
 
+		// Das Array mit den Sprites. 
+		var arr = [];
+		for (var i = 0 ; i < anzahl_sprites ; i++) {
+			// Das nächste Bild von links nach rechts. 
+			arr.push(width * i);
+			// Immer am oberen Rand anfangen. 
+			arr.push(0);
+			// Die Breite und Höhe ist fest und bei allen gleich. 
+			arr.push(width);
+			arr.push(height);
+		}
+
 		var img = new Image();
-		new_img = new Kinetic.Image({
+		new_img = new Kinetic.Sprite({
 				bild : bild,
+				// Die Position der Figur. 
 				x : parseFloat(arr_attrs[1]),
 				y : parseFloat(arr_attrs[2]),
+				animation: "idle", 
+				animations: {
+					idle: arr,
+				},
+				frameRate: 7, 
+				frameIndex: 0,
 				width : width,
 				height : height,
 				image : img,
@@ -85,6 +106,7 @@ function add_figure(figure) {
 	if (bild != 'wall') {
 		img.onload = function () {
 			layer.draw();
+			if (anzahl_sprites > 1) new_img.start();
 		};
 	}
 }

@@ -28,6 +28,7 @@ function get_dropdown_value(drop_down_id, value) {
 // Bei dem Objekt user die aktuellen Pfade hinterlegen und das Bild bei den Optionen einbinden.
 
 function set_player_pictures() {
+	on_bild_load = 0;
 	set_picture('player');
 	set_picture('ziel');
 	set_picture('victim');
@@ -37,7 +38,7 @@ function set_player_pictures() {
 function set_picture(bild) {
 	var id = 'options_img_' + bild + '_bild';
 	var src = 'img/' + options.other_user + '/' + bild + '.png';
-
+	
 	// Die Einstellungen für diesen User speichern.
 	$.ajax({
 		url : 'php/functions.php',
@@ -53,26 +54,31 @@ function set_picture(bild) {
 			if (data != 0) {
 				src = 'img/' + bild + '.png';
 			}
+			src += "?" + new Date().getTime();
 			eval('user.' + bild + '_bild_src = src;');
-			resize_img(id, src);
+			resize_img(id, src, bild);
 		},
 	});
 }
 
 
-function resize_img(id, src) {
+function resize_img(id, src, bild) {
 	var obj = document.getElementById(id);
 	obj.onload = function() {
 		// Die Größe der Bilder anpassen. 50 Pixel ist das maximum. 
-		var max_pixel = 50;
 		var obj_width = parseInt(obj.naturalWidth);
 		var obj_height = parseInt(obj.naturalHeight);
 		var faktor = 1;
-		if (obj_width > max_pixel && obj_width >= obj_height) faktor = obj_width / max_pixel;
-		else if (obj_height > max_pixel && obj_height >= obj_width) faktor = obj_height / max_pixel;
+		var anzahl_sprites = eval('game.' + bild + '_sprites');
+		if (obj_width / anzahl_sprites > max_bild_pixel && obj_width >= obj_height) faktor = parseFloat(obj_width / max_bild_pixel * anzahl_sprites);
+		else if (obj_height > max_bild_pixel && obj_height >= obj_width / anzahl_sprites) faktor = parseFloat(obj_height / max_bild_pixel);
 
-		obj.width = obj_width / faktor;
-		obj.height = obj_height / faktor;
+		obj.width = parseInt(obj_width / faktor);
+		obj.height = parseInt(obj_height / faktor);
+		
+		// Es gibt 4 Bilder für die Spielfiguren. 
+		on_bild_load += 1;
+		if (on_bild_load  >= 4) change_stage(user.current_stage, false);
 	};
 	obj.src = src;
 }
@@ -120,6 +126,10 @@ function get_saved_stages_count(hide_login) {
 			var arr = data.split(";");
 			options.anzahl_user_stages = Number(arr[0]);
 			options.anzahl_default_stages = Number(arr[1]);
+			game.player_sprites = parseInt(arr[2]);
+			game.ziel_sprites = parseInt(arr[3]);
+			game.victim_sprites = parseInt(arr[4]);
+			game.enemy_sprites = parseInt(arr[5]);
 
 			$('#index_select_user_stage').empty();
 			$('#index_select_default_stage').empty();
@@ -137,6 +147,7 @@ function get_saved_stages_count(hide_login) {
 					$('#index_start_game_button').click();
 				});
 			}
+			set_player_pictures();
 		},
 	});
 }

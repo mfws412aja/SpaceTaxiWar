@@ -26,6 +26,9 @@ function define_game_field() {
 // Ändert das Spielfeld mit der übergeben Stage und startet das Spiel gegebenenfalls.
 
 function change_stage(stage, run) {
+	if (!game.ready_state && !run && game.active) return;
+	game.ready_state = false;
+	
 	// Die Einstellungen für diesen User speichern.
 	$.ajax({
 		url : 'php/functions.php',
@@ -37,6 +40,7 @@ function change_stage(stage, run) {
 			user : options.other_user,
 			email : user.email,
 			passwort : user.pw,
+			ready_state : game.ready_state,
 		},
 		success : function (data) {
 			var arr_figure = data.split('_new_figure_');
@@ -52,15 +56,15 @@ function change_stage(stage, run) {
 			else
 				options.draggable = false;
 
+			// Den Spielstand zurücksetzen.
+			reset_game();
+
 			load_game_field();
 
 			for (var i = 2; i < arr_figure.length; i++) {
 				add_figure(arr_figure[i].replace('\r\n', ''));
 			}
 			layer.draw();
-
-			// Den Spielstand zurücksetzen.
-			reset_game();
 
 			// Bei den Optionen die aktuellen Werte einsetzen.
 			set_dropdown_values();
@@ -75,6 +79,10 @@ function change_stage(stage, run) {
 			game.active = run;
 			if (run == true)
 				game_run();
+				
+//			setTimeout(function() {
+				game.ready_state = true;
+//			}, 500);
 		},
 	});
 }

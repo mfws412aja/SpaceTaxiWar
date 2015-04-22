@@ -17,11 +17,11 @@ function set_sounds() {
 	// Die Hintergrundmusik definieren.
 	if (document.getElementById("options_sounds_bg").checked) {
 		user.sounds_bg = "X";
-		spiele_sound('audio_bg', 'theme');
+		spiele_sound("audio_bg", "theme");
 	} else {
 		user.sounds_bg = "";
 		document.getElementById("audio_bg").pause();
-	}
+	}	
 }
 
 //************************************************************************************************
@@ -34,8 +34,6 @@ function spiele_sound(id, filename) {
 	} else if (id != "audio_bg" && user.sounds_effekte == "") {
 		return;
 	}
-
-	if (id == "audio_sounds_5" && parseFloat(document.getElementById(id).currentTime) > parseFloat(options.schub_sound_duration)) return;
 	
 	// Nur wenn die Sounds aktiviert wurden.
 	var audio_datei = "";

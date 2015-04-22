@@ -15,6 +15,10 @@ function save_game() {
 	options.friendly_fire = document.getElementById("options_friendly_fire").checked == true ? "X" : "";
 	user.sounds_effekte = document.getElementById("options_sounds_effekte").checked == true ? "X" : "";
 	user.sounds_bg = document.getElementById("options_sounds_bg").checked == true ? "X" : "";
+	game.player_sprites = parseInt(document.getElementById("options_player_sprites_count").value);
+	game.ziel_sprites = parseInt(document.getElementById("options_ziel_sprites_count").value);
+	game.victim_sprites = parseInt(document.getElementById("options_victim_sprites_count").value);
+	game.enemy_sprites = parseInt(document.getElementById("options_enemy_sprites_count").value);
 
 	// Die Einstellungen für diesen User speichern.
 	$.ajax({
@@ -38,10 +42,17 @@ function save_game() {
 			user : user.name,
 			email : user.email,
 			passwort : user.pw,
+			anzahl_player_sprites : game.player_sprites,
+			anzahl_ziel_sprites : game.ziel_sprites,
+			anzahl_victim_sprites : game.victim_sprites,
+			anzahl_enemy_sprites : game.enemy_sprites,
 		},
 		success : function (data) {
 			// Die Beschriftungen für die Labels laden.
 			load_label(options.sprache);
+	
+			// Die Bilder neu laden. 
+			set_player_pictures();
 
 			// Die Seite Optionen aus- und das Spielfeld einblenden.
 			change_page('#options', '#index');
@@ -79,6 +90,16 @@ function read_options() {
 			options.key_turbo = parseFloat(arr[11].replace('\r\n', ''));
 			user.current_default_stage = parseFloat(arr[12].replace('\r\n', ''));
 			user.current_stage = user.current_default_stage;
+
+			game.player_sprites  = parseFloat(arr[13].replace('\r\n', ''));
+			game.ziel_sprites  = parseFloat(arr[14].replace('\r\n', ''));
+			game.victim_sprites  = parseFloat(arr[15].replace('\r\n', ''));
+			game.enemy_sprites  = parseFloat(arr[16].replace('\r\n', ''));
+			
+			document.getElementById("options_player_sprites_count").value = game.player_sprites;
+			document.getElementById("options_ziel_sprites_count").value = game.ziel_sprites;
+			document.getElementById("options_victim_sprites_count").value = game.victim_sprites;
+			document.getElementById("options_enemy_sprites_count").value = game.enemy_sprites;
 
 			document.getElementById('index_label_highscore').innerHTML = player.highscore;
 			document.getElementById('options_sounds_effekte').checked = user.sounds_effekte == "X" ? true : false;

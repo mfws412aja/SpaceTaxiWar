@@ -32,9 +32,14 @@ function save_options()
 	$key_left = $_POST['key_left'];
 	$key_right = $_POST['key_right'];
 	$key_turbo = $_POST['key_turbo'];
+	$anzahl_player_sprites = $_POST['anzahl_player_sprites'];
+	$anzahl_ziel_sprites = $_POST['anzahl_ziel_sprites'];
+	$anzahl_victim_sprites = $_POST['anzahl_victim_sprites'];
+	$anzahl_enemy_sprites = $_POST['anzahl_enemy_sprites'];
 
 	$str = $pw.";".$sprache.";".$difficulty.";".$highscore.";".$current_user_stage.";".$sounds_effekte.";".$sounds_bg.";".$friendly_fire;
 	$str .= ";".$key_up.";".$key_down.";".$key_left.";".$key_right.";".$key_turbo.";".$current_default_stage;
+	$str .= ";".$anzahl_player_sprites.";".$anzahl_ziel_sprites.";".$anzahl_victim_sprites.";".$anzahl_enemy_sprites;
 
 	file_put_contents("../user/".$user."/options.txt", $str);
 
@@ -80,6 +85,10 @@ function read_options()
 	$str .= $options[11].";";
 	$str .= $options[12].";";
 	$str .= $options[13].";";
+	$str .= $options[14].";";
+	$str .= $options[15].";";
+	$str .= $options[16].";";
+	$str .= $options[17].";";
 	$str .= $new_user;
 	echo $str;
 }
@@ -244,10 +253,11 @@ function delete_user()
 
 function get_saved_stages_count()
 {
-	$user = $_POST['user'];
-	$pw = $_POST['passwort'];
-	$email = $_POST['email'];
+	$user = trim($_POST['user']);
+	$pw = trim($_POST['passwort']);
+	$email = trim($_POST['email']);
 
+	$str = "";
 	create_folder("user", $user);
 	
 	// Prüfen, ob es mindestens eine Stage für diesen User gibt. 
@@ -256,7 +266,7 @@ function get_saved_stages_count()
 	{
 		$datei = file("../user/default_stage_1.txt");
 		file_put_contents("../user/".$user."/stage_1.txt", $datei);
-		echo "1;";
+		$str .= "1;";
 	}
 	else
 	{
@@ -265,7 +275,7 @@ function get_saved_stages_count()
 			if (!file_exists("../user/".$user."/stage_".$i.".txt"))
 			{
 				// Die Anzahl an Stages für diesen User. 
-				echo ($i - 1).";";
+				$str .= ($i - 1).";";
 				break;
 			}
 		}
@@ -276,11 +286,23 @@ function get_saved_stages_count()
 		if (!file_exists("../user/default_stage_".$i.".txt"))
 		{
 			// Die Anzahl an Default-Stages. 
-			echo ($i - 1);
-			return;
+			$str .= ($i - 1).";";
+			break;
 		}
 	}
+	
+	// Die Anzahl der Sprites ermitteln
+	$datei = file("../user/".$user."/options.txt");
 
+	// Die Optionen auslesen aber das Passwort weglassen. 
+	$options = explode(";", $datei[0]);
+	// Index 1 = Sprache, 2 = Difficulty, 3 = Highscore, current_user_stage = 4, sounds_effekte = 5, sounds_bg = 6, friendly_fire = 7
+	// key_up = 8, key_down = 9, key_left = 10, key_right = 11, key_turbo = 12, current_default_stage = 13
+	$str .= $options[14].";";
+	$str .= $options[15].";";
+	$str .= $options[16].";";
+	$str .= $options[17];
+	echo $str;
 }
 
 

@@ -1,5 +1,7 @@
 var browser = "";
 var frame_update = parseFloat(20);
+var on_bild_load = 0;
+var max_bild_pixel = 50;
 
 
 var options = 
@@ -16,7 +18,6 @@ var options =
 	anzahl_user_stages: 0,
 	anzahl_default_stages: 0,
 	friendly_fire: "X",
-	schub_sound_duration: 0.5,
 	key_up: 38,
 	key_down: 40,
 	key_left: 37,
@@ -77,9 +78,18 @@ var player =
 	offsetx: parseFloat(3),
 	offsety: parseFloat(3),
 	offset_drop: parseFloat(0.4),
+	offset_l_faktor: 0,
+	offset_r_faktor: 0,
+	offset_u_faktor: 0,
+	offset_d_faktor: 0,
+	offset_faktor_add: 0.15,
+	offset_faktor_sub: 0.15,
+	offset_faktor_duration: 100,
+	speedup: "",
 	highscore: parseFloat(0),
 	move_up_or_down: true,
 	left_or_right: "r",
+	up_or_down: "d",
 };
 
 
@@ -90,6 +100,11 @@ var game =
 	bullet_count: parseFloat(0),
 	bullet_timeout: 200,
 	active: false,
+	player_sprites: 1,
+	ziel_sprites: 1,
+	victim_sprites: 1,
+	enemy_sprites: 1,
+	ready_state: true,
 };
 
 

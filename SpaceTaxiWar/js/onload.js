@@ -15,7 +15,7 @@ function onload() {
 	read_options();
 
 	// Die Bilder bei den Optionen anzeigen.
-	set_player_pictures();
+//	set_player_pictures();
 
 	// Ermittelt für den aktuellen User die Anzahl ersteller Stages.
 	get_saved_stages_count(true);
