@@ -219,10 +219,12 @@ $(document).ready(function () {
 					var new_src = request.responseText.trim() + "?" + new Date().getTime();
 					var obj = document.getElementById(new_id);
 					eval('user.' + bild + '_bild_src = new_src;');
-					resize_img(new_id, new_src, bild);
+					set_player_pictures();
+//					resize_img(new_id, new_src, bild);
+					save_game();
 					change_stage(user.current_stage, false);
-					} else {
-						basic_dialog('error_during_picture_uploading', [request.status]);
+				} else {
+					basic_dialog('error_during_picture_uploading', [request.status]);
 				}
 			}
 		};

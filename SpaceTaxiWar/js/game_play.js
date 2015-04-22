@@ -197,8 +197,6 @@ function game_run() {
 // Die Variablen für das Spiel zurücksetzen und die Animationen stoppen.
 
 function reset_game(time_anim, player_anim) {
-//	scroll_window();
-
 	// Die Animationen stoppen.
 	clearInterval(time_anim);
 	clearInterval(player_anim);

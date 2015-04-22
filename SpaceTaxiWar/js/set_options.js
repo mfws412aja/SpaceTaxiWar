@@ -91,10 +91,10 @@ function read_options() {
 			user.current_default_stage = parseFloat(arr[12].replace('\r\n', ''));
 			user.current_stage = user.current_default_stage;
 
-			game.player_sprites  = parseFloat(arr[13].replace('\r\n', ''));
-			game.ziel_sprites  = parseFloat(arr[14].replace('\r\n', ''));
-			game.victim_sprites  = parseFloat(arr[15].replace('\r\n', ''));
-			game.enemy_sprites  = parseFloat(arr[16].replace('\r\n', ''));
+			game.player_sprites  = parseFloat(arr[14].replace('\r\n', ''));
+			game.ziel_sprites  = parseFloat(arr[15].replace('\r\n', ''));
+			game.victim_sprites  = parseFloat(arr[16].replace('\r\n', ''));
+			game.enemy_sprites  = parseFloat(arr[17].replace('\r\n', ''));
 			
 			document.getElementById("options_player_sprites_count").value = game.player_sprites;
 			document.getElementById("options_ziel_sprites_count").value = game.ziel_sprites;

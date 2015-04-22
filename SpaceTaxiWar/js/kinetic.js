@@ -695,7 +695,11 @@ var Kinetic = {};
 		drawImage : function () {
 			var a = arguments,
 			b = this._context;
-			3 === a.length ? b.drawImage(a[0], a[1], a[2]) : 5 === a.length ? b.drawImage(a[0], a[1], a[2], a[3], a[4]) : 9 === a.length && b.drawImage(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8])
+			try {
+				3 === a.length ? b.drawImage(a[0], a[1], a[2]) : 5 === a.length ? b.drawImage(a[0], a[1], a[2], a[3], a[4]) : 9 === a.length && b.drawImage(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8])
+			} catch (e) {
+				b.drawImage(a[0], a[1], a[2], a[3], a[4]);
+			}
 		},
 		fill : function () {
 			this._context.fill()

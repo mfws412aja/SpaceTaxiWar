@@ -47,7 +47,7 @@ function change_stage(stage, run) {
 			// Die ersten zwei Parameter ergeben die Breite und Höhe des Spielfeldes.
 			options.width = parseFloat(arr_figure[0]);
 			options.height = parseFloat(arr_figure[1]);
-
+			
 			// Wenn das Spiel ausgeführt werden soll, dürfen die Figuren nicht mehr bewegt werden können.
 			if (user.default_run == "X")
 				options.draggable = false;
@@ -58,7 +58,6 @@ function change_stage(stage, run) {
 
 			// Den Spielstand zurücksetzen.
 			reset_game();
-
 			load_game_field();
 
 			for (var i = 2; i < arr_figure.length; i++) {
@@ -68,7 +67,6 @@ function change_stage(stage, run) {
 
 			// Bei den Optionen die aktuellen Werte einsetzen.
 			set_dropdown_values();
-
 			// Das Fenster ganz nach oben scrollen.
 			var inter = setInterval(function () {
 				if (!$('#dialog').is(':visible')) {

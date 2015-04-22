@@ -76,7 +76,7 @@ var label_dialog = {
 
 	new_highscore : "New Highscore!<br /><br />Zeit-Bonus: x {0}<br />Friendly-Fire-Bonus: x {1}<br /><br />Gesamt: {2}",
 	stage_clear : "Stage clear!<br /><br />Zeit-Bonus: x {0}<br />Friendly-Fire-Bonus: x {1}<br /><br />Gesamt: {2}",
-	would_be_a_new_highscore : "This would be a new Highscore!<br /><br />Zeit-Bonus: x {0}<br />Friendly-Fire-Bonus: x {1}<br /><br />Gesamt: {2}",
+	would_be_a_new_highscore : "Das wäre ein neuer Highscore!<br /><br />Zeit-Bonus: x {0}<br />Friendly-Fire-Bonus: x {1}<br /><br />Gesamt: {2}",
 	no_more_levels : "Keine weiteren Level vorhanden.",
 	time_up : "Zeit abgelaufen!",
 	game_over : "Game Over",

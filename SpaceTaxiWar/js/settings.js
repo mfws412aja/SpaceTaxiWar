@@ -3,6 +3,7 @@ var frame_update = parseFloat(20);
 var on_bild_load = 0;
 var max_bild_pixel = 50;
 
+var x = 0;
 
 var options = 
 {

@@ -72,6 +72,7 @@ function read_options()
 	$options = explode(";", $datei[0]);
 	// Index 1 = Sprache, 2 = Difficulty, 3 = Highscore, current_user_stage = 4, sounds_effekte = 5, sounds_bg = 6, friendly_fire = 7
 	// key_up = 8, key_down = 9, key_left = 10, key_right = 11, key_turbo = 12, current_default_stage = 13
+	// Anzahl Player-Sprites = 14, Anzahl Ziel-Sprites = 15, Anzahl Victim-Sprites = 16, Anzahl Enemy-Sprites = 17
 	$str = $options[1].";";
 	$str .= $options[2].";";
 	$str .= $options[3].";";
@@ -85,11 +86,11 @@ function read_options()
 	$str .= $options[11].";";
 	$str .= $options[12].";";
 	$str .= $options[13].";";
+	$str .= $new_user.";";
 	$str .= $options[14].";";
 	$str .= $options[15].";";
 	$str .= $options[16].";";
-	$str .= $options[17].";";
-	$str .= $new_user;
+	$str .= $options[17];
 	echo $str;
 }
 

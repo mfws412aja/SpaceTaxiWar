@@ -45,9 +45,9 @@ function add_figure(figure) {
 		var obj = document.getElementById('options_img_' + bild + '_bild');
 		var anzahl_sprites = eval('game.' + bild + '_sprites');
 		// Die Sprites dürfen nur in die Breite gezogen werden. 
-		var width = parseFloat(obj.width / anzahl_sprites);
+		var width = parseInt(obj.width / anzahl_sprites);
 		var height = obj.height;
-		
+
 		if (bild == "victim")
 			options.victim_counter += 1;
 		else if (bild == "enemy")
@@ -64,13 +64,13 @@ function add_figure(figure) {
 			arr.push(width);
 			arr.push(height);
 		}
-
+		
 		var img = new Image();
 		new_img = new Kinetic.Sprite({
 				bild : bild,
 				// Die Position der Figur. 
-				x : parseFloat(arr_attrs[1]),
-				y : parseFloat(arr_attrs[2]),
+				x : parseInt(arr_attrs[1]),
+				y : parseInt(arr_attrs[2]),
 				animation: "idle", 
 				animations: {
 					idle: arr,
@@ -82,6 +82,7 @@ function add_figure(figure) {
 				image : img,
 				draggable : options.draggable,
 			});
+				
 		eval('img.src = user.' + bild + '_bild_src;');
 	}
 
