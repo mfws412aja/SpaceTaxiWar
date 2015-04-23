@@ -30,9 +30,10 @@ $(document).ready(function () {
 
 		// Erst die gesamte Seite verbergen. Wenn alles verborgen wurde, die nicht mehr änderbaren Elemente ausblenden.
 		$('#index').hide(index_effect.hide_effect, index_effect.hide_duration, function () {
-			// Den End-Button und die Default-Stage-Auswahl einblenden.
+			// Den End-Button, den Options-Button und die Default-Stage-Auswahl einblenden.
 			$('#index_end_game_button').show();
 			$('#index_select_default_stage').show();
+			$('#index_options_button').show();
 
 			// Alle Elemente ausblenden
 			$('#index_options').hide();
@@ -48,7 +49,7 @@ $(document).ready(function () {
 			user.current_stage = user.current_default_stage;
 
 			// Die erste Default-Stage aufrufen.
-			if (on_bild_load >= 4) change_stage(user.current_stage, false);
+			if (on_bild_load >= 4) save_game(); // change_stage(user.current_stage, false);
 
 			// Wenn alles weg ist, index wieder einblenden.
 			$('#index').show(index_effect.show_effect, index_effect.show_duration);
@@ -101,10 +102,12 @@ $(document).ready(function () {
 				$('#index_save_stage_button').show();
 				$('#index_delete_stage_button').show();
 				$('.options_field_size').show();
+				$('#index_options_button').show();
 			} else {
 				$('#index_save_stage_button').hide();
 				$('#index_delete_stage_button').hide();
 				$('.options_field_size').hide();
+				$('#index_options_button').hide();
 			}
 		} else if (options_art == "width") {
 			options.width = parseFloat(this.value);
