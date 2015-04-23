@@ -163,6 +163,7 @@ function save_stage(decision) {
 		success : function (data) {
 			if (new_stage == true) {
 				$('#index_select_user_stage').append('<option value="' + options.anzahl_user_stages + '">' + options.anzahl_user_stages + '</option>');
+				user.current_stage = options.anzahl_user_stages;
 				user.current_user_stage = options.anzahl_user_stages;
 				change_stage(options.anzahl_user_stages, false);
 			}
