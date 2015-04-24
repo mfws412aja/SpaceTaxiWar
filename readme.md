@@ -46,7 +46,7 @@ Effekt-Sounds während des Spiels.
 ##Hintergrundmusik
 Während der gesamten Zeit auf dieser Seite. 
 ##Friendly Fire
-(De)Aktiviert das Abschießen der Passagiere. Am Ende einer erfolgreichen Runde wird auf diesen Wert geprüft. Ist Dieses Feld aktiviert, wird ein Bonus mit dem Faktor 3 auf die Gesamtpunktzahl gewährt. 
+(De)Aktiviert das Abschießen der Passagiere. Am Ende einer erfolgreichen Runde wird auf diesen Wert geprüft. Ist dieses Feld aktiviert, wird ein Bonus mit dem Faktor 3 auf die Gesamtpunktzahl gewährt. 
 ##Schwierigkeitsgrad
 Bestimmt die Gravitationsgeschwindigkeit des Spielers nach unten. Je höher dieser Wert, desto mehr Punkte werden beim Einsammeln der Passagiere vergeben. 
 ##Richtungstasten
