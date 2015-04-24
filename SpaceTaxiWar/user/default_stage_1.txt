@@ -1,9 +1,0 @@
-1000
-500
-player;12;14
-ziel;736;412
-victim;208;81
-victim;576;375
-victim;289;280
-enemy;600;144
-wall;574;430
